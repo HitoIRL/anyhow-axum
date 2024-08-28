@@ -20,6 +20,36 @@ anyhow = "1.0"
 
 <br>
 
+## Modifications
+To use it with axum all you need to do is update your crate in Cargo.toml
+
+<br>
+
+from:
+```toml
+[dependencies]
+anyhow = "1.0"
+```
+to:
+```toml
+[dependencies]
+anyhow = { git = "https://github.com/HitoIRL/anyhow-axum" }
+```
+
+<br>
+
+example axum code:
+```rust
+pub fn router() -> Router {
+    Router::new()
+        .route("/", get(error_check))
+}
+
+async fn error_check() -> anyhow::Result<()> {
+    anyhow::bail!("Oops... I bailed...");
+}
+```
+
 ## Details
 
 - Use `Result<T, anyhow::Error>`, or equivalently `anyhow::Result<T>`, as the
